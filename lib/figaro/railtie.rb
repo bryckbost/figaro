@@ -7,5 +7,9 @@ module Figaro
       path = Rails.root.join("config/application.yml")
       ENV.update(YAML.load(File.read(path)) || {}) if File.exist?(path)
     end
+
+    rake_tasks do
+      load 'figaro/tasks.rb'
+    end
   end
 end

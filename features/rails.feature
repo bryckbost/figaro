@@ -55,3 +55,13 @@ Feature: Rails
     When I run "bundle exec rails generate figaro:install"
     Then "config/application.yml" should exist
     But ".gitignore" should not exist
+
+  Scenario: Configure Heroku environment variables
+    Given I add heroku as a dependency
+    And I bundle
+    When I create "config/application.yml" with:
+      """
+      HELLO: world
+      """
+    And I run "bundle exec rake figaro:heroku"
+    Then the output should be "!    No app specified.\n !    Run this command from an app folder or specify which app to use with --app <app name>"
